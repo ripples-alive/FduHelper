@@ -41,7 +41,7 @@ exer = connect.getExercise()
 for x in exer:
     print x[0] + x[1]
 writeLog(exer)
-exer[0] = exer[1] = (1, 2)
+# exer[0] = exer[1] = (1, 2)
 
 gpa = connect.getGPA()
 for x in gpa:
@@ -50,7 +50,7 @@ for x in gpa:
         s += y + '\t'
     print s
 writeLog(gpa)
-gpa = []
+# gpa = []
 
 del(connect)
 
