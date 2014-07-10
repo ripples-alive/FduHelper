@@ -8,16 +8,24 @@ from bs4 import BeautifulSoup
 from web import Web
 
 class FduConnect:
-    def __init__(self):
-        self.__connect = Web()
+    def __init__(self, username, password):
+        self.__login(username, password)
+
         self.__exerLogined = False
 
-    def login(self, username, password):
+    def __del__(self):
+        self.__logout()
+
+    def __login(self, username, password):
         loginUrl = 'https://uis1.fudan.edu.cn/amserver/UI/Login'
         data = {"IDToken0" : "", "IDToken1" : username, "IDToken2" : password, \
             "IDButton" : "Submit", "goto" : "", "encoded" : "false", \
             "inputCode" : "", "gx_charset" : "UTF-8"}
-        self.__connect.login(loginUrl, data)
+        self.__connect = Web(loginUrl, data)
+
+    def __logout(self):
+        logoutUrl = 'http://www.portal.fudan.edu.cn/main/logout.do'
+        self.__connect.logout(logoutUrl)
 
     def __loginExercise(self):
         url = 'http://www.fdty.fudan.edu.cn/sportscore/'
@@ -45,7 +53,7 @@ class FduConnect:
         url = 'http://www.fdty.fudan.edu.cn/sportScore/stScore.aspx'
         content = self.__connect.open(url)
         if content == None:
-            return
+            return []
 
         soup = BeautifulSoup(content)
         result = soup.find('span', id = 'lblmsg')
@@ -64,7 +72,7 @@ class FduConnect:
         url = 'http://www.urp.fudan.edu.cn:78/epstar/app/fudan/ScoreManger/ScoreViewer/Student/Course.jsp'
         content = self.__connect.open(url)
         if content == None:
-            return
+            return []
 
         soup = BeautifulSoup(content)
         result = soup.find('tr', id = 'tr_0')

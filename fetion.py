@@ -24,9 +24,12 @@ class Fetion:
             data = self.__getData(toTel, msg)
         # print data
 
-        result = urllib2.urlopen(url, data).read()
-        resDict = json.loads(result)
-        if resDict['result'] == 0:
-            print 'Send message successfully!'
-        else:
-            print 'Send message failed.'
+        try:
+            result = urllib2.urlopen(url, data).read()
+            resDict = json.loads(result)
+            if resDict['result'] == 0:
+                print 'Send message successfully!'
+            else:
+                print 'Send message failed.'
+        except Exception, e:
+            print e

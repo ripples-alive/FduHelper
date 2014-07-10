@@ -13,7 +13,7 @@ def writeLog(content):
 
     if type(content) == type(''):
         log.write(content + '\n')
-    else:
+    elif content != None:
         for row in content:
             for item in row:
                 log.write(item)
