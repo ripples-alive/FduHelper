@@ -29,7 +29,9 @@ class Fetion:
             resDict = json.loads(result)
             if resDict['result'] == 0:
                 print 'Send message successfully!'
+                return True
             else:
                 print 'Send message failed.'
+                return False
         except Exception, e:
             print e

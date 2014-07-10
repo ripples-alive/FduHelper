@@ -58,13 +58,11 @@ class FduConnect:
         soup = BeautifulSoup(content)
         result = soup.find('span', id = 'lblmsg')
 
-        pattern = re.compile(u'>.{,10}</td>')
+        pattern = re.compile(ur'<td[^>]*>([^<]*)</td>')
         resList = pattern.findall(unicode(result))
         ans = []
         for i in xrange(0, len(resList) - 1, 2):
-            key = resList[i]
-            value = resList[i + 1]
-            ans.append((key[1 : len(key) - 5], value[1 : len(value) - 5]))
+            ans.append((resList[i].strip(), resList[i + 1].strip()))
 
         return ans
 
@@ -82,7 +80,7 @@ class FduConnect:
             course = []
             row = result.contents
             for i in xrange(1, len(row), 2):
-                course.append(row[i].string.replace('\t', '').replace('\r', '').replace('\n', ''))
+                course.append(row[i].string.strip())
             ans.append(tuple(course))
             result = result.nextSibling.nextSibling
 

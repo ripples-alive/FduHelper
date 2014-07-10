@@ -41,6 +41,7 @@ exer = connect.getExercise()
 for x in exer:
     print x[0] + x[1]
 writeLog(exer)
+exer[0] = exer[1] = (1, 2)
 
 gpa = connect.getGPA()
 for x in gpa:
@@ -49,6 +50,7 @@ for x in gpa:
         s += y + '\t'
     print s
 writeLog(gpa)
+gpa = []
 
 del(connect)
 
@@ -60,7 +62,7 @@ fet.sendMsg('此短信仅为验证飞信密码、功能是否正常！')
 del(fet)
 
 while True:
-    time.sleep(20)
+    time.sleep(60)
 
     connect = FduConnect(username, password)
 
@@ -68,8 +70,8 @@ while True:
     if len(result) == len(exer) and set(result) != set(exer):
         print 'New exercise!'
         fet = Fetion(fetionUser, fetionPwd)
-        print '您的体锻有更新！' + getDiffExer(result, exer)
-        # fet.sendMsg('您的体锻有更新！' + getDiffExer(result, exer))
+        # print '您的体锻有更新！' + getDiffExer(result, exer)
+        fet.sendMsg('您的体锻有更新！' + getDiffExer(result, exer))
         del(fet)
 
         exer = result
@@ -82,8 +84,8 @@ while True:
     if len(result) > len(gpa):
         print 'New score!'
         fet = Fetion(fetionUser, fetionPwd)
-        print '您有新的科目出分了！' + getDiffGPA(result, gpa)
-        # fet.sendMsg('您有新的科目出分了！' + getDiffGPA(result, gpa))
+        # print '您有新的科目出分了！' + getDiffGPA(result, gpa)
+        fet.sendMsg('您有新的科目出分了！' + getDiffGPA(result, gpa))
         del(fet)
 
         gpa = result
