@@ -25,11 +25,14 @@ class Web:
         except Exception, e:
             print e
 
-    def open(self, url, data=None):
+    def open(self, url, data=None, method='POST'):
         try:
-            if (data == None):
-                return self.__opener.open(url).read()
-            else:
-                return self.__opener.open(url, urllib.urlencode(data)).read()
+            if method == 'POST':
+                if (data == None):
+                    return self.__opener.open(url).read()
+                else:
+                    return self.__opener.open(url, urllib.urlencode(data)).read()
+            elif method == 'GET':
+                return self.__opener.open(url + '?' + urllib.urlencode(data)).read()
         except Exception, e:
             print e
