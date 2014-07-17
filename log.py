@@ -4,16 +4,19 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-def writeLog(content):
+
+def write_log(content):
+    """Write content into log file."""
     log = open('.log', 'a')
     log.write('=' * 20)
     log.write(time.strftime('%Y-%m-%d %H:%M:%S'))
     log.write('=' * 20)
     log.write('\n')
 
-    if type(content) == type(''):
+    # if type(content) == type(''):
+    if isinstance(content, str):
         log.write(content + '\n')
-    elif content != None:
+    elif content is not None:
         for row in content:
             for item in row:
                 log.write(item)
